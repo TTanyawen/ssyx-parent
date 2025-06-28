@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
-//sku信息 服务类
+// sku信息 服务类
 public interface SkuInfoService extends IService<SkuInfo> {
-
+    //获取sku分页列表
+    IPage<SkuInfo> selectPage(Page<SkuInfo> pageParam, SkuInfoQueryVo skuInfoQueryVo);
+    //添加商品
+    void saveSkuInfo(SkuInfoVo skuInfoVo);
 }

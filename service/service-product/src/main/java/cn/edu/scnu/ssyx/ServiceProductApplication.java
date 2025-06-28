@@ -1,4 +1,4 @@
-package cn.edu.scnu.ssyx.product;
+package cn.edu.scnu.ssyx;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
