@@ -1,0 +1,45 @@
+aliyun:
+    endpoint: oss-cn-shenzhen.aliyuncs.com
+    keyid: LTAI5tCbob7SHBNAaPT8sjMx
+    keysecret: yionv7P6hqD4RmgUQ2b9cEQYv5HOif
+    bucketname: scnu-ssyx
+mybatis-plus:
+    type-enums-package: cn.edu.scnu.ssyx.enums
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+    port: 8203
+spring:
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/shequ-product?characterEncoding=utf-8&useSSL=false
+        username: root
+        password: 2640
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+    rabbitmq:
+        host: 192.168.79.128
+        port: 5672
+        username: guest
+        password: guest
+        publisher-confirm-type: CORRELATED
+        publisher-returns: true
+        listener:
+            simple:
+                prefetch: 1
+                concurrency: 3
+                acknowledge-mode: manual   #消费端手动确认
+    redis:
+        host: localhost
+        port: 6379
+        database: 0
+        timeout: 1800000
+        password:
+        lettuce:
+            pool:
+                max-active: 20 #最大连接数
+                max-wait: -1    #最大阻塞等待时间(负数表示没限制)
+                max-idle: 5    #最大空闲
+                min-idle: 0     #最小空闲
