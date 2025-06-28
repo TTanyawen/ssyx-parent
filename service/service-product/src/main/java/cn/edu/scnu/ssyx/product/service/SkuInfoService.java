@@ -13,4 +13,16 @@ public interface SkuInfoService extends IService<SkuInfo> {
     IPage<SkuInfo> selectPage(Page<SkuInfo> pageParam, SkuInfoQueryVo skuInfoQueryVo);
     //添加商品
     void saveSkuInfo(SkuInfoVo skuInfoVo);
+
+    SkuInfoVo getSkuInfoVo(Long id);
+
+    //修改sku
+    void updateSkuInfo(SkuInfoVo skuInfoVo);
+    //商品审核
+    void check(Long skuId, Integer status);
+
+    //商品上下架
+    void publish(Long skuId, Integer status);
+    //新人专享
+    void isNewPerson(Long skuId, Integer status);
 }

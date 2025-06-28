@@ -9,6 +9,11 @@ import java.util.List;
 //spu属性值 服务实现类
 @Service
 public class SkuAttrValueServiceImpl extends ServiceImpl<SkuAttrValueMapper, SkuAttrValue> implements SkuAttrValueService {
-
-
+    //根据id查询商品属性信息列表
+    @Override
+    public List<SkuAttrValue> getAttrValueListBySkuId(Long skuId) {
+        LambdaQueryWrapper<SkuAttrValue> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SkuAttrValue::getSkuId,skuId);
+        return baseMapper.selectList(wrapper);
+    }
 }

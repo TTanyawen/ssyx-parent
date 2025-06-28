@@ -46,4 +46,74 @@ public class SkuInfoController {
         skuInfoService.saveSkuInfo(skuInfoVo);
         return Result.ok(null);
     }
+
+
+    // url: `${api_name}/get/${id}`,
+// method: 'get'
+    @ApiOperation("获取sku信息")
+    @GetMapping("get/{id}")
+    public Result<SkuInfoVo> get(@PathVariable Long id) {
+        SkuInfoVo skuInfoVo = skuInfoService.getSkuInfoVo(id);
+        return Result.ok(skuInfoVo);
+    }
+
+    // url: `${api_name}/update`,
+    // method: 'put',
+// data: role
+    @ApiOperation("修改sku")
+    @PutMapping("update")
+    public Result update(@RequestBody SkuInfoVo skuInfoVo) {
+        skuInfoService.updateSkuInfo(skuInfoVo);
+        return Result.ok(null);
+    }
+
+    // url: `${api_name}/remove/${id}`,
+// method: 'delete',
+// data: null
+    @ApiOperation("删除sku")
+    @DeleteMapping("remove/{id}")
+    public Result remove(@PathVariable Long id) {
+        skuInfoService.removeById(id);
+        return Result.ok(null);
+    }
+
+    // url: `${api_name}/batchRemove`,
+// method: 'delete',
+// data: null
+    @ApiOperation("根据id列表删除")
+    @DeleteMapping("batchRemove")
+    public Result batchRemove(@RequestBody List<Long> idList) {
+        skuInfoService.removeByIds(idList);
+        return Result.ok(null);
+    }
+
+    //  url: `${api_name}/check/${id}/${status}`,
+//  method: 'get'
+    @ApiOperation("商品审核")
+    @GetMapping("check/{skuId}/{status}")
+    public Result check(@PathVariable Long skuId,
+                        @PathVariable Integer status) {
+        skuInfoService.check(skuId,status);
+        return Result.ok(null);
+    }
+
+
+    //  url: `${api_name}/publish/${id}/${status}`,
+//  method: 'get'
+    @ApiOperation("商品上下架")
+    @GetMapping("publish/{skuId}/{status}")
+    public Result publish(@PathVariable Long skuId,
+                          @PathVariable Integer status) {
+        skuInfoService.publish(skuId,status);
+        return Result.ok(null);
+    }
+    //新人专享
+//  url: `${api_name}/isNewPerson/${id}/${status}`,
+//  method: 'get'
+    @GetMapping("isNewPerson/{skuId}/{status}")
+    public Result isNewPerson(@PathVariable("skuId") Long skuId,
+                              @PathVariable("status") Integer status) {
+        skuInfoService.isNewPerson(skuId, status);
+        return Result.ok(null);
+    }
 }

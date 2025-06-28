@@ -9,5 +9,12 @@ import java.util.List;
 //商品图片 服务实现类
 @Service
 public class SkuImageServiceImpl extends ServiceImpl<SkuImageMapper, SkuImage> implements SkuImageService {
-
+    //根据id查询商品图片列表
+    @Override
+    public List<SkuImage> getImageListBySkuId(Long skuId) {
+        LambdaQueryWrapper<SkuImage> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SkuImage::getSkuId,skuId);
+        List<SkuImage> skuImageList = baseMapper.selectList(wrapper);
+        return skuImageList;
+    }
 }
