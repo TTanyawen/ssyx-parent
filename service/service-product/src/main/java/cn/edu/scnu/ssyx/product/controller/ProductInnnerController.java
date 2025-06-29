@@ -4,13 +4,14 @@ import cn.edu.scnu.ssyx.model.product.SkuInfo;
 import cn.edu.scnu.ssyx.product.service.CategoryService;
 import cn.edu.scnu.ssyx.product.service.SkuInfoService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
+import java.util.List;
 @RestController
 @RequestMapping("/api/product")
+@SuppressWarnings({"unchecked", "rawtypes"})//抑制警告类型
+//通过指定警告类型（如unchecked、rawtypes、deprecation等），告诉编译器忽略相关警告
 public class ProductInnnerController {
     @Resource
     private CategoryService categoryService;
@@ -29,4 +30,16 @@ public class ProductInnnerController {
     public SkuInfo getSkuInfo(@PathVariable Long skuId) {
         return skuInfoService.getById(skuId);
     }
+
+    @ApiOperation(value = "批量获取sku信息")
+    @PostMapping("inner/findSkuInfoList")
+    public List<SkuInfo> findSkuInfoList(@RequestBody List<Long> skuIdList) {
+        return skuInfoService.findSkuInfoList(skuIdList);
+    }
+    //根据关键字匹配sku列表
+    @GetMapping("inner/findSkuInfoByKeyword/{keyword}")
+    public List<SkuInfo> findSkuInfoByKeyword(@PathVariable("keyword") String keyword) {
+        return skuInfoService.findSkuInfoByKeyword(keyword);
+    }
+
 }

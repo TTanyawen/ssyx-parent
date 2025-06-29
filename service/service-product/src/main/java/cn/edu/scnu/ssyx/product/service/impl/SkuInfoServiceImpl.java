@@ -1,6 +1,4 @@
 package cn.edu.scnu.ssyx.product.service.impl;
-import cn.edu.scnu.ssyx.common.exception.SsyxException;
-import cn.edu.scnu.ssyx.common.result.ResultCodeEnum;
 import cn.edu.scnu.ssyx.model.product.SkuAttrValue;
 import cn.edu.scnu.ssyx.model.product.SkuImage;
 import cn.edu.scnu.ssyx.model.product.SkuInfo;
@@ -14,24 +12,17 @@ import cn.edu.scnu.ssyx.product.service.SkuInfoService;
 import cn.edu.scnu.ssyx.product.service.SkuPosterService;
 import cn.edu.scnu.ssyx.vo.product.SkuInfoQueryVo;
 import cn.edu.scnu.ssyx.vo.product.SkuInfoVo;
-import cn.edu.scnu.ssyx.vo.product.SkuStockLockVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 
 // sku信息 服务实现类
@@ -212,5 +203,18 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         SkuInfo skuInfo = baseMapper.selectById(skuId);
         skuInfo.setCheckStatus(status);
         baseMapper.updateById(skuInfo);
+    }
+
+    // 批量获取sku信息
+    @Override
+    public List<SkuInfo> findSkuInfoList(List<Long> skuIdList) {
+        return this.listByIds(skuIdList);
+    }
+    // 根据关键字获取sku列表
+    @Override
+    public List<SkuInfo> findSkuInfoByKeyword(String keyword) {
+        LambdaQueryWrapper<SkuInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(SkuInfo::getSkuName, keyword);
+        return baseMapper.selectList(queryWrapper);
     }
 }

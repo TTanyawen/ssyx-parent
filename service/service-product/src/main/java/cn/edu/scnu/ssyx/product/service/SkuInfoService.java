@@ -25,4 +25,10 @@ public interface SkuInfoService extends IService<SkuInfo> {
     void publish(Long skuId, Integer status);
     //新人专享
     void isNewPerson(Long skuId, Integer status);
+
+    // 批量获取sku信息
+    List<SkuInfo> findSkuInfoList(List<Long> skuIdList);
+
+    // 根据关键字获取sku列表
+    List<SkuInfo> findSkuInfoByKeyword(String keyword);
 }
