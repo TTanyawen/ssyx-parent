@@ -16,7 +16,7 @@ import java.util.Map;
 //活动表 前端控制器
 @RestController
 @RequestMapping("/admin/activity/activityInfo")
-@CrossOrigin
+//@CrossOrigin
 public class ActivityInfoController {
     @Resource
     private ActivityInfoService activityInfoService;

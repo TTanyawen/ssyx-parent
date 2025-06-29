@@ -12,7 +12,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/sys/ware")
-@CrossOrigin
+//@CrossOrigin
 public class WareController {
     @Resource
     private WareService wareService;

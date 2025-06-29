@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value="/admin/product/category")
 @SuppressWarnings({"unchecked", "rawtypes"})
-@CrossOrigin
+//@CrossOrigin
 public class CategoryController {
     @Resource
     private CategoryService categoryService;

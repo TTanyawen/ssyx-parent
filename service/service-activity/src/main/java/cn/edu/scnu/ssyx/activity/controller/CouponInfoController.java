@@ -15,7 +15,7 @@ import java.util.List;
 // 优惠券信息 前端控制器
 @RestController
 @RequestMapping("/admin/activity/couponInfo")
-@CrossOrigin
+//@CrossOrigin
 public class CouponInfoController {
     @Resource
     private CouponInfoService couponInfoService;
