@@ -5,6 +5,8 @@ import cn.edu.scnu.ssyx.model.product.SkuAttrValue;
 import cn.edu.scnu.ssyx.model.product.SkuImage;
 import cn.edu.scnu.ssyx.model.product.SkuInfo;
 import cn.edu.scnu.ssyx.model.product.SkuPoster;
+import cn.edu.scnu.ssyx.mq.constant.MqConst;
+import cn.edu.scnu.ssyx.mq.service.RabbitService;
 import cn.edu.scnu.ssyx.product.mapper.SkuInfoMapper;
 import cn.edu.scnu.ssyx.product.service.SkuAttrValueService;
 import cn.edu.scnu.ssyx.product.service.SkuImageService;
@@ -36,6 +38,8 @@ import java.util.List;
 @Service
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implements SkuInfoService {
 
+    @Resource
+    private RabbitService rabbitService;
     @Resource
     private SkuInfoMapper skuInfoMapper;
 
@@ -180,11 +184,16 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
             skuInfo.setPublishStatus(status);
             baseMapper.updateById(skuInfo);
             //TODO 整合mq把数据同步到es里面
+            //商品上架：发送mq消息同步es
+            rabbitService.sendMessage(MqConst.EXCHANGE_GOODS_DIRECT, MqConst.ROUTING_GOODS_UPPER, skuId);
+
         } else { //下架
             SkuInfo skuInfo = baseMapper.selectById(skuId);
             skuInfo.setPublishStatus(status);
             baseMapper.updateById(skuInfo);
             //TODO 整合mq把数据同步到es里面
+            //商品下架：发送mq消息同步es
+            rabbitService.sendMessage(MqConst.EXCHANGE_GOODS_DIRECT, MqConst.ROUTING_GOODS_LOWER, skuId);
         }
     }
 

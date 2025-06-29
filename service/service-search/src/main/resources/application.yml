@@ -1,12 +1,11 @@
 spring:
     application:
-        name: service-product
+        name: service-search
     cloud:
         nacos:
             username: nacos
             password: nacos
             discovery:
                 server-addr: localhost:8848
-
     profiles:
         active: dev

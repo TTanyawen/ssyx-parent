@@ -1,24 +1,25 @@
-aliyun:
-    endpoint: oss-cn-shenzhen.aliyuncs.com
-    keyid: LTAI5tBhmQweDACP63DZ5U2E
-    keysecret: mNGJHFyJ2sXmePSfFTOywQycfbEeCd
-    bucketname: scnu-ssyx-2640
+server:
+    port: 8204
+
 mybatis-plus:
-    type-enums-package: cn.edu.scnu.ssyx.enums
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-server:
-    port: 8203
+    type-enums-package: cn.edu.scnu.ssyx.enums
+
+feign:
+    sentinel:
+        enabled: true
+    client:
+        config:
+            default:
+                connect-timeout: 30000
+                read-timeout: 50000
 spring:
-    datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/shequ-product?characterEncoding=utf-8&useSSL=false
-        username: root
-        password: 2640
-    jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
-        time-zone: GMT+8
+    main:
+        allow-bean-definition-overriding: true
+    elasticsearch:
+        rest:
+            uris: http://localhost:9200
     rabbitmq:
         host: 192.168.10.128
         port: 5672
@@ -43,4 +44,3 @@ spring:
                 max-wait: -1    #最大阻塞等待时间(负数表示没限制)
                 max-idle: 5    #最大空闲
                 min-idle: 0     #最小空闲
-
